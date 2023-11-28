@@ -14,7 +14,7 @@ Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So di
 ## Usage
 
 ```bash
-git clone git@github.com:ostrich/QEMUUserModeBenchmark.git && cd QEMUUserModeBenchmark
+git clone https://github.com/ostrich/QEMUUserModeBenchmark.git && cd QEMUUserModeBenchmark
 ```
 ```bash
 ./build.sh
