@@ -8,7 +8,7 @@ Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So di
 - [QEMU](https://www.qemu.org/) with User Mode Emulation (binfmt_misc) support enabled
 - [Go](https://golang.org/)
 - [Python 3](https://www.python.org/)
-- [Hyperfine](https://github.com/sharkdp/hyperfine)
+- [hyperfine](https://github.com/sharkdp/hyperfine)
 - [matplotlib](https://matplotlib.org/)
 
 ## Usage
