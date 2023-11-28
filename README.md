@@ -4,7 +4,7 @@ Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So di
 
 ## Requirements
 
-- Linux (maybe FreeBSD--I understand it supports QEMU User Mode emulation, but I haven't tested it)
+- Linux
 - [QEMU](https://www.qemu.org/) with User Mode Emulation (binfmt_misc) support enabled
 - [Go](https://golang.org/)
 - [Python 3](https://www.python.org/)
