@@ -34,7 +34,7 @@ git clone https://github.com/ostrich/QEMUUserModeBenchmark.git && cd QEMUUserMod
 - `main.go`: A [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). Calculates primes up to 10 million.
 - `build.sh`: Compiles statically linked binaries for each of Go's supported Linux target architectures (386, amd64, arm, arm64, loong64, mips, mips64, mips64le,mipsle, ppc64, ppc64le, riscv64, and s390x).
 - `benchmark.sh`: Uses [hyperfine](https://github.com/sharkdp/hyperfine) to benchmark the execution time of each executable. Outputs results to json.
-- - `summary.py`: Parses json and prints results to stdout.
+- `summary.py`: Parses json and prints results to stdout.
   - `--format text`: Default. Prints a simple table to stdout.
   - `--format csv`: Prints a CSV to stdout.
   - `--format markdown`: Prints a markdown table to stdout.
