@@ -33,6 +33,8 @@ I was curious how well various [QEMU](https://www.qemu.org/) emulators perform r
 
 ## My results
 
+![Results](https://github.com/ostrich/QEMUUserModeBenchmark/blob/main/results.png?raw=true)
+
 Run on an AMD 5900X with 64 GiB RAM.
 |Architecture|Mean (s)       |StdDev (s)     |
 |----------|-----------------|-----------------|
