@@ -24,7 +24,7 @@ Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So di
 
 - `main.go`: a simple [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes).
 - `build.sh`: Compiles statically linked binaries for each of Go's supported Linux target architectures (386, amd64, arm, arm64, loong64, mips, mips64, mips64le,mipsle, ppc64, ppc64le, riscv64, and s390x).
-- `benchmark.sh`: Uses [Hyperfine](https://github.com/sharkdp/hyperfine) to benchmark the execution time of each executable. Outputs results to json.
+- `benchmark.sh`: Uses [hyperfine](https://github.com/sharkdp/hyperfine) to benchmark the execution time of each executable. Outputs results to json.
 - `chart.py`: Uses [matplotlib](https://matplotlib.org/) to generate a simple chart from the json output.
 - `summary.py`: Parses json and prints results to stdout.
   - `--format text`: Default. Prints a simple table to stdout.
@@ -33,9 +33,10 @@ Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So di
 
 ## My results
 
+Run on an AMD 5900X with 64 GiB RAM.
+
 ![Results](https://github.com/ostrich/QEMUUserModeBenchmark/blob/main/results.png?raw=true)
 
-Run on an AMD 5900X with 64 GiB RAM.
 |Architecture|Mean (s)       |StdDev (s)     |
 |----------|-----------------|-----------------|
 |amd64   |0.315251|0.005368|
