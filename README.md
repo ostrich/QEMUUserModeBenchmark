@@ -1,6 +1,6 @@
 ﻿# QEMU User Mode Benchmarking
 
-Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So did I, so I made this benchmark. It runs a [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) on each of Go's supported Linux target architectures using [QEMU User Mode](https://www.qemu.org/docs/master/user/main.html) emulation.
+Ever wondered which [QEMU](https://www.qemu.org/) emulator is the fastest? So did I, so I made this benchmark. It runs a [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) on each of Go's supported Linux target architectures using [QEMU User Mode Emulation](https://www.qemu.org/docs/master/user/main.html).
 
 ## Requirements
 
