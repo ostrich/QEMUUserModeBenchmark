@@ -8,9 +8,6 @@ import matplotlib.pyplot as plt
 ARCH_FILE = Path("architectures.txt")
 RESULTS_DIR = Path("results")
 
-# Function to process the result file for a given architecture
-
-
 def load_architectures():
     with ARCH_FILE.open('r') as file:
         return [
@@ -26,7 +23,6 @@ def process_result_file(arch):
         data = json.load(file)
         results = data['results'][0]
 
-        # Extract relevant information
         mean = results['mean']
         stddev = results['stddev']
 
