@@ -1,17 +1,26 @@
 #! /usr/bin/python3
 import json
 import argparse
+from pathlib import Path
 
-# List of architectures
-architectures = ["amd64", "386", "arm", "arm64", "loong64", "mips",
-                 "mips64", "mips64le", "mipsle", "ppc64", "ppc64le", "riscv64", "s390x"]
+ARCH_FILE = Path("architectures.txt")
+RESULTS_DIR = Path("results")
 
 # Function to process the result file for a given architecture
 
 
+def load_architectures():
+    with ARCH_FILE.open('r') as file:
+        return [
+            line.strip()
+            for line in file
+            if line.strip() and not line.lstrip().startswith("#")
+        ]
+
+
 def process_result_file(arch):
-    file_path = f'benchmark.{arch}.json'
-    with open(file_path, 'r') as file:
+    file_path = RESULTS_DIR / f'benchmark.{arch}.json'
+    with file_path.open('r') as file:
         data = json.load(file)
         results = data['results'][0]
 
@@ -56,6 +65,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Process each architecture and store the results
+    architectures = load_architectures()
     data = []
     for arch in architectures:
         mean, stddev = process_result_file(arch)

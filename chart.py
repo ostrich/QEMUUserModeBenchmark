@@ -1,18 +1,28 @@
 #! /usr/bin/python3
 
 import json
+import argparse
+from pathlib import Path
 import matplotlib.pyplot as plt
 
-# List of architectures
-architectures = ["amd64", "386", "arm", "arm64", "loong64", "mips",
-                 "mips64", "mips64le", "mipsle", "ppc64", "ppc64le", "riscv64", "s390x"]
+ARCH_FILE = Path("architectures.txt")
+RESULTS_DIR = Path("results")
 
 # Function to process the result file for a given architecture
 
 
+def load_architectures():
+    with ARCH_FILE.open('r') as file:
+        return [
+            line.strip()
+            for line in file
+            if line.strip() and not line.lstrip().startswith("#")
+        ]
+
+
 def process_result_file(arch):
-    file_path = f'benchmark.{arch}.json'
-    with open(file_path, 'r') as file:
+    file_path = RESULTS_DIR / f'benchmark.{arch}.json'
+    with file_path.open('r') as file:
         data = json.load(file)
         results = data['results'][0]
 
@@ -23,31 +33,30 @@ def process_result_file(arch):
         return mean, stddev
 
 
-# Process each architecture and store the results
-means = []
-stddevs = []
-for arch in architectures:
-    mean, stddev = process_result_file(arch)
-    means.append(mean)
-    stddevs.append(stddev)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Generate a chart from benchmark results.')
+    parser.add_argument('--output', default='results.png', help='Output image path')
+    parser.add_argument('--show', action='store_true', help='Display the chart window')
+    args = parser.parse_args()
 
-# Plotting
-fig, ax = plt.subplots()
+    architectures = load_architectures()
+    means = []
+    stddevs = []
+    for arch in architectures:
+        mean, stddev = process_result_file(arch)
+        means.append(mean)
+        stddevs.append(stddev)
 
-# Plot bars with error bars (standard deviation)
-bars = ax.bar(architectures, means, yerr=stddevs, capsize=5)
+    fig, ax = plt.subplots()
+    ax.bar(architectures, means, yerr=stddevs, capsize=5)
 
-ax.set_ylabel('Execution Time (s)')
-ax.set_title('Execution Time with Standard Deviation for Each Architecture')
-ax.set_xlabel('Architecture')
+    ax.set_ylabel('Execution Time (s)')
+    ax.set_title('Execution Time with Standard Deviation for Each Architecture')
+    ax.set_xlabel('Architecture')
 
-# Rotate x-axis labels and adjust the position of the main label
-ax.set_xticklabels(architectures, rotation=45, ha='right')
-plt.xticks(rotation=45)
-plt.subplots_adjust(bottom=0.2)  # Adjust the bottom margin
+    plt.xticks(rotation=45, ha='right')
+    plt.subplots_adjust(bottom=0.2)
 
-# Add legend
-# ax.legend([f'Mean ({arch})' for arch in architectures])
-
-# Display the plot
-plt.show()
+    fig.savefig(args.output, dpi=150, bbox_inches='tight')
+    if args.show:
+        plt.show()

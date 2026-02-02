@@ -1,0 +1,5 @@
+/bin/
+/results/
+/results.png
+sieve.*
+benchmark.*.json

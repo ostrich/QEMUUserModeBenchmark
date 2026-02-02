@@ -1,65 +1,33 @@
 package main
 
-import (
-	"fmt"
-	"math"
-	"sync"
-)
+import "fmt"
 
-// PrimeSieve generates prime numbers up to the given limit using the Sieve of Eratosthenes algorithm.
-func PrimeSieve(limit uint64, wg *sync.WaitGroup, ch chan uint64) {
-	defer wg.Done()
+const limit = 25_000_000
 
-	// Create a boolean slice to represent whether each number is prime.
-	isPrime := make([]bool, limit+1)
-	for i := range isPrime {
-		isPrime[i] = true
+func primeCount(limit int) int {
+	if limit < 2 {
+		return 0
 	}
 
-	// 0 and 1 are not prime.
-	isPrime[0], isPrime[1] = false, false
-
-	// Iterate through the numbers up to the square root of the limit.
-	for i := uint64(2); i <= uint64(math.Sqrt(float64(limit))); i++ {
-		// If i is prime, mark its multiples as not prime.
-		if isPrime[i] {
+	composite := make([]bool, limit+1)
+	for i := 2; i*i <= limit; i++ {
+		if !composite[i] {
 			for j := i * i; j <= limit; j += i {
-				isPrime[j] = false
+				composite[j] = true
 			}
 		}
 	}
 
-	// Send primes to the channel.
-	for i, prime := range isPrime {
-		if prime {
-			ch <- uint64(i)
+	count := 0
+	for i := 2; i <= limit; i++ {
+		if !composite[i] {
+			count++
 		}
 	}
 
-	close(ch)
+	return count
 }
 
 func main() {
-	const limit = 1e7
-
-	// Use a WaitGroup to wait for goroutines to finish.
-	var wg sync.WaitGroup
-
-	// Create a channel to receive prime numbers.
-	ch := make(chan uint64, 1000)
-
-	// Start the goroutine for prime sieve.
-	wg.Add(1)
-	go PrimeSieve(limit, &wg, ch)
-
-	// Start a goroutine to print primes from the channel concurrently.
-	go func() {
-		for prime := range ch {
-			fmt.Println(prime)
-		}
-	}()
-
-	// Wait for the prime sieve to finish.
-	wg.Wait()
-
+	fmt.Println(primeCount(limit))
 }
